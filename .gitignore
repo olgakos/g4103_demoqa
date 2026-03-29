@@ -3,6 +3,7 @@
 
 # Log file
 *.log
+logs/
 
 # BlueJ files
 *.ctxt
@@ -34,7 +35,6 @@ gradle/
 build/
 bin/
 out/
-logs/
 target/
 .classpath
 .project
