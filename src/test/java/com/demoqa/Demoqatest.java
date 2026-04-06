@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Selenide.open;
 public class Demoqatest {
 
     @BeforeAll
-    static void openPage() {
+    static void setupSelenideEnv() {
         Configuration.browserSize = "1920x1080";
         open("https://demoqa.com/automation-practice-form");
         Configuration.reopenBrowserOnFail = true;
@@ -28,7 +28,11 @@ public class Demoqatest {
         $("#firstName").setValue("Jane");
         $("#lastName").setValue("Doe");
         $("#userEmail").setValue("mail@mail.com");
-        $(byText("Female")).click();
+
+        //radio button
+        //$(byText("Female")).click();
+        $("input.form-check-input[value=Female]").click();
+
         $("#userNumber").setValue("9031112233");
         $("#dateOfBirthInput").click();
         $("[class*='month-select']").selectOptionByValue("1");
@@ -36,12 +40,17 @@ public class Demoqatest {
         $("[class*='day--030']").click();
         $("#subjectsInput").setValue("Maths").pressEnter();
         $(byText("Music")).click();
-        $("#uploadPicture").uploadFile(new File("src/test/data/sample.png"));
+
+        //Upload file (from resources folder)
+        //$("#uploadPicture").uploadFile(new File("src/test/data/sample.png"));
+        $("#uploadPicture").uploadFromClasspath("data/sample.png");
+
         $("#currentAddress").setValue("Moscow");
         $("#react-select-3-input").setValue("Uttar Pradesh").pressEnter();
         $("#react-select-4-input").setValue("Agra").pressEnter();
         $("#submit").pressEnter();
 
+        //verification form
         $("#example-modal-sizes-title-lg").shouldBe(Condition.visible).shouldHave(text("Thanks for submitting the form"));
         $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Jane Doe"));
         $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("mail@mail.com"));
